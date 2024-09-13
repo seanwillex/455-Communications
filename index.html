@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>455 Communications Ltd - Site Maintenance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #2A2E56;
+            --coral: #FF6B6B;
+            --teal: #4ECDC4;
+            --orange: #FF9F1C;
+            --light-gray: #F8F9FA;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--navy);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            max-width: 250px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .countdown-item {
+            margin: 0 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        .countdown-number {
+            font-size: 4rem;
+            font-weight: 600;
+            color: var(--coral);
+            background: var(--navy);
+            border-radius: 15px;
+            padding: 1rem;
+            min-width: 100px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .countdown-label {
+            font-size: 1.2rem;
+            color: var(--navy);
+            margin-top: 0.5rem;
+        }
+
+        .countdown-item:hover .countdown-number {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .decoration {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .circle1 {
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--teal);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle2 {
+            bottom: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--orange);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 200px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .countdown-number {
+                font-size: 3rem;
+                min-width: 80px;
+            }
+
+            .countdown-label {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="decoration circle1"></div>
+        <div class="decoration circle2"></div>
+        <img src="/api/placeholder/250/100" alt="455 Communications Ltd Logo" class="logo">
+        <h1>Our site is undergoing maintenance.<br>We'll be back soon.</h1>
+        <div class="countdown">
+            <div class="countdown-item">
+                <div id="days" class="countdown-number">29</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div id="hours" class="countdown-number">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div id="minutes" class="countdown-number">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div id="seconds" class="countdown-number">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getTimeRemaining(endtime) {
+            const total = Date.parse(endtime) - Date.parse(new Date());
+            const seconds = Math.floor((total / 1000) % 60);
+            const minutes = Math.floor((total / 1000 / 60) % 60);
+            const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(total / (1000 * 60 * 60 * 24));
+            
+            return {
+                total,
+                days,
+                hours,
+                minutes,
+                seconds
+            };
+        }
+
+        function initializeClock(endtime) {
+            const daysSpan = document.getElementById('days');
+            const hoursSpan = document.getElementById('hours');
+            const minutesSpan = document.getElementById('minutes');
+            const secondsSpan = document.getElementById('seconds');
+
+            function updateClock() {
+                const t = getTimeRemaining(endtime);
+
+                daysSpan.innerHTML = t.days;
+                hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                    initializeClock(new Date(Date.parse(new Date()) + 29 * 24 * 60 * 60 * 1000));
+                }
+            }
+
+            updateClock();
+            const timeinterval = setInterval(updateClock, 1000);
+        }
+
+        const deadline = new Date(Date.parse(new Date()) + 29 * 24 * 60 * 60 * 1000);
+        initializeClock(deadline);
+    </script>
+</body>
+</html>
