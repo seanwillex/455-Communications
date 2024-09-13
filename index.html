@@ -28,11 +28,13 @@
         }
 
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
             text-align: center;
             position: relative;
+            box-sizing: border-box;
         }
 
         .logo-container {
@@ -58,30 +60,31 @@
 
         .countdown {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             margin-top: 3rem;
         }
 
         .countdown-item {
-            margin: 0 1rem;
+            margin: 1rem;
             opacity: 0;
             animation: fadeInUp 1s ease-out 1s forwards;
         }
 
         .countdown-number {
-            font-size: 4rem;
+            font-size: 3rem;
             font-weight: 600;
             color: var(--coral);
             background: var(--navy);
             border-radius: 15px;
-            padding: 1rem;
-            min-width: 100px;
+            padding: 0.5rem;
+            min-width: 80px;
             display: inline-block;
             transition: all 0.3s ease;
         }
 
         .countdown-label {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--navy);
             margin-top: 0.5rem;
         }
@@ -134,21 +137,62 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
             .logo-container {
                 max-width: 300px;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+
+            .countdown {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+
+            .countdown-item {
+                margin: 0.5rem;
+                flex-basis: 40%;
             }
 
             .countdown-number {
-                font-size: 3rem;
-                min-width: 80px;
+                font-size: 2.5rem;
+                min-width: 60px;
+                padding: 0.3rem;
             }
 
             .countdown-label {
-                font-size: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .countdown {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .countdown-item {
+                margin: 0.5rem 0;
+                flex-basis: auto;
+                width: 100%;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+                min-width: 50px;
+            }
+
+            .countdown-label {
+                font-size: 0.8rem;
             }
         }
     </style>
