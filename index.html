@@ -35,11 +35,18 @@
             position: relative;
         }
 
-        .logo {
-            max-width: 250px;
-            margin-bottom: 2rem;
+        .logo-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 2rem;
             opacity: 0;
             animation: fadeInDown 1s ease-out forwards;
+        }
+
+        .logo {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         h1 {
@@ -127,8 +134,8 @@
         }
 
         @media (max-width: 768px) {
-            .logo {
-                max-width: 200px;
+            .logo-container {
+                max-width: 300px;
             }
 
             h1 {
@@ -150,7 +157,9 @@
     <div class="container">
         <div class="decoration circle1"></div>
         <div class="decoration circle2"></div>
-        <img src="455-Communications/logo.png" alt="455 Communications Ltd Logo" class="logo">
+        <div class="logo-container">
+            <img src="logo.png" alt="455 Communications Ltd Logo" class="logo">
+        </div>
         <h1>Our site is undergoing maintenance.<br>We'll be back soon.</h1>
         <div class="countdown">
             <div class="countdown-item">
